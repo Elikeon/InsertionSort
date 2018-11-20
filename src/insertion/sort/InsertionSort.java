@@ -1,11 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Jared Craig
+ * 15/11/2018
+ * Sorting program that uses insertion sort
  */
 
 package insertion.sort;
-
+import static java.lang.System.currentTimeMillis;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 /**
@@ -13,42 +13,57 @@ import java.util.ArrayList;
  * @author jacra1226
  */
 public class InsertionSort {
-
-    /**
-     * @param args the command line arguments
-     */
+        static int comp = 0;
+        static int swap = 0;
+   
     public static void main(String[] args) {
        String Num = JOptionPane.showInputDialog("Input amount of numbers in the array."); 
-       
         int Num1 = Integer.parseInt(Num);
         ArrayList<Integer> arrlist = new ArrayList<Integer>();
-       int[] arrlist2;
+        int[] arrlist2;
+        double start=0;
+        double finish=0;
+        double total=0;
 
-    
-        
+        //Creates a random arraylist
         for(int i =0; i < Num1; i++){
-            int r = (int) (Math.random() * 99);  
+            int r = (int) (Math.random() * 100);  
              arrlist.add(i,r);
              
         }
+        //Converts int arraylist to int array
         int[] arr = new int[arrlist.size()];
-for(int i = 0; i < arrlist.size(); i++) {
-    arr[i] = arrlist.get(i);
-}
-      
-       arrlist2 = doInsertionSort(arr);
+            for(int i = 0; i < arrlist.size(); i++) {
+                 arr[i] = arrlist.get(i);
+            }   
+            
+            // Starts timer
+            start = currentTimeMillis();   
+            arrlist2 = doInsertionSort(arr);
+            finish = currentTimeMillis();
+            total = finish - start;
+            
+        //Prints out sorted array    
         for(int i:arrlist2){
             System.out.print(i);
-            System.out.print(", ");
+            System.out.print("\n"); 
         }
+        
+    //Prints out total time in ms, amount of comparisons and amount of swaps  
+    System.out.println("the time taken is: " + total + "ms");
+    System.out.println("Number of comparisons: " + comp);
+    System.out.println("Number of swaps: " + swap);
+    
     }
      
     public static int[] doInsertionSort(int[] input){
-         
+      
         int temp;
         for (int i = 1; i < input.length; i++) {
             for(int j = i ; j > 0 ; j--){
-                if(input[j] < input[j-1]){
+                comp++;
+                if(input[j] < input[j-1]){ //Can switch A -> Z to Z -> A
+                    swap++;
                     temp = input[j];
                     input[j] = input[j-1];
                     input[j-1] = temp;
@@ -56,6 +71,5 @@ for(int i = 0; i < arrlist.size(); i++) {
             }
         }
         return input;
-    }
-    
+    }   
 }
